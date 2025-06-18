@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import axios from "axios";
 
@@ -41,8 +40,16 @@ export default function App() {
 
   const handlePredict = async () => {
     if (!hashtag) return;
-    const res = await axios.post("http://127.0.0.1:5000/api/predict", { hashtag });
-    setPrediction(res.data);
+    try {
+      const res = await axios.post(
+        "https://trendscopeai-backend.onrender.com/api/predict",
+        { hashtag }
+      );
+      setPrediction(res.data);
+    } catch (error) {
+      console.error("Қате болды:", error);
+      setPrediction({ message: "Қате болды. Қайталап көріңіз." });
+    }
   };
 
   return (
@@ -97,7 +104,7 @@ export default function App() {
       <div style={{ marginTop: "3rem" }}>
         <h3>{t.summer}</h3>
         <ul>
-          <li>🔥 #Euro2024</li>
+          <li>🔥 #Euro2025</li>
           <li>🔥 #iOS18</li>
           <li>🔥 #AItools2025</li>
         </ul>
